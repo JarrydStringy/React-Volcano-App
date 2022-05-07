@@ -32,7 +32,61 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+header {
+  background: #fc5603;
+  color: #fff;
+  padding: 10px 30px;
+}
+
+footer {
+  background: #222;
+  padding: 40px;
+  text-align: center;
+  color: #d8d8d8;
+}
+
+/*List on 1 line*/
+nav ul li {
+  display: inline-block;
+}
+
+/*Text to right*/
+nav {
+  width: 50%;
+  display: inline-block;
+  text-align: right;
+}
+
+/*Remove default style and margin to modify*/
+nav ul {
+  list-style: none;
+  margin: 0;
+}
+
+/*Modify each link in the list - Will fade into color*/
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 3px;
+  transition: 0.3s ease all;
+}
+
+nav ul li a:hover {
+  background: #444;
+}
+
+.VolcanoList {
+  text-align: center;
+}
+
+.ag-theme-balham {
+  text-align: center;
 }
