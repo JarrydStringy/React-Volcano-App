@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useResults } from "../api";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { Button, Badge } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import ControlledForm from "../components/UserForm";
 
 const columns = [
     { headerName: "ID", field: "id" },
@@ -13,24 +15,25 @@ const columns = [
     { headerName: "Subregion", field: "subregion" }
 ]
 
-export default function VolcanoList() {
+export default function Display() {
     const [rowData, setRowData] = useState([]);
     const navigate = useNavigate();
+    const { volcanoes } = useResults();
 
     useEffect(() => {
-        fetch("http://sefdb02.qut.edu.au:3001/volcanoes?country=Japan&populatedWithin=100km")
-            .then(res => res.json())
-            .then(data =>
-                data.map(volcano => {
-                    return {
-                        id: volcano.id,
-                        name: volcano.name,
-                        country: volcano.country,
-                        region: volcano.region,
-                        subregion: volcano.subregion
-                    };
-                })
-            )
+        volcanoes.map(volcano => {
+            return {
+                id: volcano.id,
+                name: volcano.name,
+                country: volcano.country,
+                region: volcano.region,
+                subregion: volcano.subregion
+            };
+        })
+            .then(volcanoes => setRowData(volcanoes));
+    }, []);
+    useEffect(() => {
+        volcanoes
             .then(volcanoes => setRowData(volcanoes));
     }, []);
 
@@ -70,26 +73,4 @@ export default function VolcanoList() {
             </Button>
         </div>
     );
-}
-
-function ControlledForm() {
-    const [country, setCountry] = useState([]);
-
-    return (
-        <div className="InputForm">
-
-            <form>
-                <label htmlFor="country">Country:</label>
-                <input
-                    type="text"
-                    name="country"
-                    id="country"
-                    value={country}
-                    onChange={(event) => {
-                        setCountry(event.target.value);
-                    }}
-                />
-            </form>
-        </div>
-    )
 }

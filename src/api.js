@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 
-const QUERY = 1;
+const COUNTRY_QUERY = "Japan";
+const DISTANCE_QUERY = 100;
 
-export function useVolcano() {
+export function useResults() {
     const [loading, setLoading] = useState(true);
-    const [volcano, setVolcano] = useState([]);
+    const [volcanoes, setVolcanoes] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(
         () => {
-            getVolcanoByQuery(QUERY)
-                .then((volcano) => {
-                    setVolcano(volcano);
+            getVolcanoByQuery(COUNTRY_QUERY, DISTANCE_QUERY)
+                .then((volcanoes) => {
+                    setVolcanoes(volcanoes);
                 })
                 .catch((e) => {
                     setError(e);
@@ -22,13 +23,13 @@ export function useVolcano() {
         }, []);
     return {
         loading,
-        volcano,
+        volcanoes,
         error,
     };
 }
 
-function getVolcanoByQuery(q) {
-    const url = `http://sefdb02.qut.edu.au:3001/volcano/${q}`;
+function getVolcanoByQuery(cq, dq) {
+    const url = `http://sefdb02.qut.edu.au:3001/volcanoes?country=${cq}&populatedWithin=${dq}km`;
 
     return fetch(url)
         .then((res) => res.json())

@@ -1,43 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
+import ControlledForm from "../components/UserForm";
+
+const API_URL = "http://sefdb02.qut.edu.au:3001";
 
 export default function Register() {
+    function register() {
+        const url = `${API_URL}/user/register`;
+
+        return fetch(url, {
+            method: "POST",
+            headers: { accept: "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({ email: "n9734074@qut.edu.au", password: "password" })
+        })
+            .then(res => res.json())
+            .then(res => console.log(res));
+    }
+
+    //Need to take results from controlled form and feed them into register
+
     return (
-        <div className="Register">
+        <div className="Login">
             <h2>Register</h2>
             <ControlledForm />
+            <button onClick={register}>Register</button>
         </div>
     );
-}
-
-function ControlledForm() {
-    const [email, setEmail] = useState([]);
-    const [password, setPassword] = useState([]);
-
-    return (
-        <div className="Form">
-            <form>
-                <label htmlFor="email">Email: </label>
-                <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    value={email}
-                    onChange={(event) => {
-                        setEmail(event.target.value);
-                    }}
-                />
-                <br />
-                <label htmlFor="password">Password: </label>
-                <input
-                    type="text"
-                    name="password"
-                    id="password"
-                    value={password}
-                    onChange={(event) => {
-                        setPassword(event.target.value);
-                    }}
-                />
-            </form>
-        </div>
-    )
 }

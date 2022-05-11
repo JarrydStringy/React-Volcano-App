@@ -1,14 +1,16 @@
 import React from "react";
+import ControlledForm from "../components/UserForm";
 
 const API_URL = "http://sefdb02.qut.edu.au:3001";
 
 export default function Login() {
     function login() {
         const url = `${API_URL}/user/login`;
+
         return fetch(url, {
             method: "POST",
             headers: { accept: "application/json", "Content-Type": "application/json" },
-            body: JSON.stringify({ email: "mike@gmail.com", password: "password" })
+            body: JSON.stringify({ email: "n9734074@qut.edu.au", password: "password" })
         })
             .then(res => res.json())
             .then(res => {
@@ -34,6 +36,7 @@ export default function Login() {
     return (
         <div className="Login">
             <h2>Login</h2>
+            <ControlledForm />
             <button onClick={login}>Login</button>
         </div>
     );
