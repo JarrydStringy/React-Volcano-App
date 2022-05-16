@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import ControlledForm from "../components/UserForm";
 
 const API_URL = "http://sefdb02.qut.edu.au:3001";
 
 export default function Register() {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
     function register() {
         const url = `${API_URL}/user/register`;
 

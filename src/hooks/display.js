@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useResults } from "../api";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { Button, Badge } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import ControlledForm from "../components/UserForm";
+import SearchBar from "../components/SearchBar";
 
 const columns = [
-    { headerName: "ID", field: "id" },
     { headerName: "Name", field: "name" },
     { headerName: "Country", field: "country" },
     { headerName: "Region", field: "region" },
@@ -16,50 +15,32 @@ const columns = [
 ]
 
 export default function Display() {
-    const [rowData, setRowData] = useState([]);
     const navigate = useNavigate();
     const { volcanoes } = useResults();
 
-    useEffect(() => {
-        volcanoes.map(volcano => {
-            return {
-                id: volcano.id,
-                name: volcano.name,
-                country: volcano.country,
-                region: volcano.region,
-                subregion: volcano.subregion
-            };
-        })
-            .then(volcanoes => setRowData(volcanoes));
-    }, []);
-    useEffect(() => {
-        volcanoes
-            .then(volcanoes => setRowData(volcanoes));
-    }, []);
-
     return (
         <div className="container">
-            <h2>Volcano List</h2>
-
-            <ControlledForm />
+            <div>
+                <SearchBar />
+            </div>
 
             <p>
-                <Badge color="success">{rowData.length}</Badge>
+                <Badge color="success">{volcanoes.length}</Badge>
                 Volcanoes found in Japan
             </p>
 
             <div
                 className="ag-theme-balham"
                 style={{
-                    height: "300px"
+                    height: "400px"
                 }}
             >
                 <AgGridReact
                     columnDefs={columns}
-                    rowData={rowData}
+                    rowData={volcanoes}
                     pagination={true}
-                    paginationPageSize={7}
-                    onRowClicked={(row) => navigate(`/volcano?title=${row.data.title}`)}
+                    paginationPageSize={12}
+                    onRowClicked={(row) => navigate(`/volcano?id=${row.data.id}`)}
                 />
             </div>
 
