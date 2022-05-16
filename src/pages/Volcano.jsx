@@ -6,7 +6,8 @@ import { Map, Marker } from "pigeon-maps"
 export default function Volcano() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const volcano = searchParams.get("volcano");
+    const name = searchParams.get("name");
+    const country = searchParams.get("country");
 
     function MyMap() {
         return (
@@ -19,7 +20,8 @@ export default function Volcano() {
     return (
         <div className="volcano">
             <h2>Individual Volcano</h2>
-            <p>The volcano that you selected was: {volcano.id}</p>
+            <p>The volcano that you selected was: {name}</p>
+            <p>It can be found in: {country}</p>
 
             <MyMap />
 

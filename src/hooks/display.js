@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useResults } from "../api";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
@@ -40,7 +40,9 @@ export default function Display() {
                     rowData={volcanoes}
                     pagination={true}
                     paginationPageSize={12}
-                    onRowClicked={(row) => navigate(`/volcano?id=${row.data.id}`)}
+                    onRowClicked={(row) => navigate(
+                        `/volcano?name=${row.data.name}&country=${row.data.country}`
+                    )}
                 />
             </div>
 
