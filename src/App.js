@@ -11,7 +11,6 @@ import Logout from './pages/Logout';
 import Register from './pages/Register';
 import VolcanoList from './pages/VolcanoList';
 import Volcano from './pages/Volcano';
-import Test from './pages/TestVolcanoList';
 
 export default function App() {
   return (
@@ -26,7 +25,6 @@ export default function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/volcanolist" element={<VolcanoList />} />
           <Route path="/volcano" element={<Volcano />} />
-          <Route path="/test" element={<Test />} />
         </Routes>
 
         <Footer />
