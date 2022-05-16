@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
-const COUNTRY_QUERY = "Japan";
-const DISTANCE_QUERY = 100;
-
 export function useResults() {
     const [loading, setLoading] = useState(true);
     const [volcanoes, setVolcanoes] = useState([]);
     const [error, setError] = useState(null);
+
+    const COUNTRY_QUERY = "Japan";
+    const DISTANCE_QUERY = 100;
 
     useEffect(
         () => {

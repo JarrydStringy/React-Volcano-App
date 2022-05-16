@@ -6,14 +6,14 @@ import { Button, Badge } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
 const columns = [
-    { headerName: "ID", field: "id" },
-    { headerName: "Name", field: "name" },
-    { headerName: "Country", field: "country" },
-    { headerName: "Region", field: "region" },
-    { headerName: "Subregion", field: "subregion" }
+    { headerName: "ID", field: "id", sortable: true, filter: true },
+    { headerName: "Name", field: "name", sortable: true, filter: true },
+    { headerName: "Country", field: "country", sortable: true, filter: true },
+    { headerName: "Region", field: "region", sortable: true, filter: true },
+    { headerName: "Subregion", field: "subregion", sortable: true, filter: true }
 ]
 
-export default function VolcanoList() {
+export default function Test() {
     const [rowData, setRowData] = useState([]);
     const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ export default function VolcanoList() {
                     rowData={rowData}
                     pagination={true}
                     paginationPageSize={7}
-                    onRowClicked={(row) => navigate(`/volcano?title=${row.data.title}`)}
+                    onRowClicked={(row) => navigate(`/volcano?title=${row.data.id}`)}
                 />
             </div>
 

@@ -1,25 +1,34 @@
 import { useState } from "react";
+import ReactSelectAutocomplete from "./ReactSelectAutocomplete";
+import VanillaDropdown from "./VanillaDropdown";
 
-export default function SearchBar(props) {
-    const [innerSearch, setInnerSearch] = useState("");
+export default function SearchBar() {
+    const countries = ["Saab", "Volvo", "BMW", "Hyundai", "Mercedes"];
+    const distances = ["5km", "10km", "30km", "100km"];
+    const [selectedCountry, setSelectedCountry] = useState();
+    const [selectedDistance, setSelectedDistance] = useState();
 
     return (
         <div>
-            <input
-                aria-labelledby="search-button"
-                name="search"
-                id="search"
-                type="search"
-                value={innerSearch}
-                onChange={(e) => setInnerSearch(e.target.value)}
+            <ReactSelectAutocomplete
+                options={countries}
+                label="Country"
+                isSearchable={true}
+                onChange={setSelectedCountry}
             />
-            <button
-                id="search-button"
-                type="button"
-                onClick={() => props.onSubmit(innerSearch)}
-            >
-                Search
-            </button>
+            <VanillaDropdown
+                options={distances}
+                label="Distance Within"
+                onChange={setSelectedDistance}
+            />
+
+            <p>Search</p>
+
         </div>
     );
 }
+
+
+{/* <hr />
+            <h3>Selection:</h3>
+{ selectedCar ? <p>Last selected car is: {selectedCar}</p> : null } */}

@@ -5,7 +5,7 @@ export default function ControlledForm() {
     const [password, setPassword] = useState([]);
 
     return (
-        <div className="Form">
+        <div className="UserForm">
             <form>
                 <label htmlFor="email">Email: </label>
                 <input
