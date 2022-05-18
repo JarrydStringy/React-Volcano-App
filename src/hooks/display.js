@@ -8,10 +8,9 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 
 const columns = [
-    { headerName: "Name", field: "name" },
-    { headerName: "Country", field: "country" },
-    { headerName: "Region", field: "region" },
-    { headerName: "Subregion", field: "subregion" }
+    { headerName: "Name", field: "name", sortable: true, filter: true },
+    { headerName: "Region", field: "region", sortable: true, filter: true },
+    { headerName: "Subregion", field: "subregion", sortable: true, filter: true }
 ]
 
 export default function Display() {
@@ -41,7 +40,7 @@ export default function Display() {
                     pagination={true}
                     paginationPageSize={12}
                     onRowClicked={(row) => navigate(
-                        `/volcano?name=${row.data.name}&country=${row.data.country}`
+                        `/volcano?name=${row.data.name}`
                     )}
                 />
             </div>
@@ -57,3 +56,6 @@ export default function Display() {
         </div>
     );
 }
+
+
+// /volcano?name=${row.data.name}&country=${row.data.country}
