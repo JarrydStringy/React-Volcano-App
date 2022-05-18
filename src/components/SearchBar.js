@@ -3,7 +3,7 @@ import ReactSelectAutocomplete from "./ReactSelectAutocomplete";
 import VanillaDropdown from "./VanillaDropdown";
 
 export default function SearchBar() {
-    const countries = ["Saab", "Volvo", "BMW", "Hyundai", "Mercedes"];
+    const countries = ["Country1", "Country1", "Country1", "Country1", "Country1"];
     const distances = ["5km", "10km", "30km", "100km"];
     const [selectedCountry, setSelectedCountry] = useState();
     const [selectedDistance, setSelectedDistance] = useState();
@@ -22,7 +22,7 @@ export default function SearchBar() {
                 onChange={setSelectedDistance}
             />
 
-            <p>Search</p>
+            <button>Search</button>
 
         </div>
     );

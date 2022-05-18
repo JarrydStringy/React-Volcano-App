@@ -8,6 +8,11 @@ export default function Volcano() {
     const [searchParams] = useSearchParams();
     const name = searchParams.get("name");
     const country = searchParams.get("country");
+    const region = searchParams.get("region");
+    const subregion = searchParams.get("subregion");
+    const last_eruption = searchParams.get("last_eruption");
+    const summit = searchParams.get("summit");
+    const elevation = searchParams.get("elevation");
 
     function MyMap() {
         return (
@@ -19,9 +24,13 @@ export default function Volcano() {
 
     return (
         <div className="volcano">
-            <h2>Individual Volcano</h2>
-            <p>The volcano that you selected was: {name}</p>
-            <p>It can be found in: {country}</p>
+            <h2>{name}</h2>
+            <p>Country: {country}</p>
+            <p>Region: {region}</p>
+            <p>Subregion: {subregion}</p>
+            <p>Last Eruption: {last_eruption}</p>
+            <p>Summit: {summit}</p>
+            <p>Elevation: {elevation}</p>
 
             <MyMap />
 
