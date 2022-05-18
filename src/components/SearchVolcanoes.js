@@ -24,7 +24,7 @@ export default function SearchBar(props) {
             />
             <VanillaDropdown
                 options={distances}
-                label="Distance Within"
+                label="Distance Within Range"
                 aria-labelledby="search-distances"
 
                 name="search"
