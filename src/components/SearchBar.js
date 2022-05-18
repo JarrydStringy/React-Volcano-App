@@ -4,7 +4,6 @@ import VanillaDropdown from "./VanillaDropdown";
 import { useCountries } from "../api";
 
 export default function SearchBar(props) {
-    // const countries = ["Japan", "Australia"];
     const { countries } = useCountries();
     const distances = ["5km", "10km", "30km", "100km"];
     const [selectedCountry, setSelectedCountry] = useState("");

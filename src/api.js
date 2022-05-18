@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { resolvePath } from "react-router-dom";
 
 export function useVolcanoes(countryQuery) {
     const [loading, setLoading] = useState(true);
@@ -56,8 +57,8 @@ export function useCountries() {
     useEffect(
         () => {
             getCountries()
-                .then((countries) => {
-                    setCountries(countries);
+                .then((res) => {
+                    setCountries(res);
                 })
                 .catch((e) => {
                     setError(e);
@@ -77,10 +78,5 @@ function getCountries() {
     const url = `http://sefdb02.qut.edu.au:3001/countries`;
 
     return fetch(url)
-        .then((res) => res.json())
-        .then((countries) =>
-            countries.map((country) => ({
-                id: country.id
-            }))
-        );
+        .then((res) => res.json());
 }
