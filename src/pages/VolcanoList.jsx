@@ -1,9 +1,9 @@
 import React from "react";
-import { useResults } from "../api";
+import { useVolcanoes } from "../api";
 import Display from "../hooks/display";
 
 export default function VolcanoList() {
-    const { loading, error } = useResults();
+    const { loading, error } = useVolcanoes();
 
     if (loading) {
         return <p>Loading...</p>;
