@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "reactstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Map, Marker } from "pigeon-maps"
+import { MyMap } from "../hooks/map";
 
 export default function Volcano() {
     const navigate = useNavigate();
@@ -13,14 +13,6 @@ export default function Volcano() {
     const last_eruption = searchParams.get("last_eruption");
     const summit = searchParams.get("summit");
     const elevation = searchParams.get("elevation");
-
-    function MyMap() {
-        return (
-            <Map height={300} defaultCenter={[50.879, 4.6997]} defaultZoom={11}>
-                <Marker width={50} anchor={[50.879, 4.6997]} />
-            </Map>
-        )
-    }
 
     return (
         <div className="volcano">
