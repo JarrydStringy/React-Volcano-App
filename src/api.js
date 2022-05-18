@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function useResults() {
+export function useResults(countryQuery) {
     const [loading, setLoading] = useState(true);
     const [volcanoes, setVolcanoes] = useState([]);
     const [error, setError] = useState(null);
@@ -10,7 +10,7 @@ export function useResults() {
 
     useEffect(
         () => {
-            getVolcanoByQuery(COUNTRY_QUERY, DISTANCE_QUERY)
+            getVolcanoByQuery(countryQuery, DISTANCE_QUERY)
                 .then((volcanoes) => {
                     setVolcanoes(volcanoes);
                 })
@@ -20,7 +20,7 @@ export function useResults() {
                 .finally(() => {
                     setLoading(false);
                 });
-        }, []);
+        }, [countryQuery]);
     return {
         loading,
         volcanoes,
