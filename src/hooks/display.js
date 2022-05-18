@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useResults } from "../api";
+import { useVolcanoes } from "../api";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { Button, Badge } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "../components/SearchVolcanoes";
+import SearchBar from "../components/SearchBar";
 
 const columns = [
     { headerName: "Name", field: "name", sortable: true, filter: true },
@@ -17,7 +17,7 @@ export default function Display() {
     const [countrySearch, setCountrySearch] = useState("Japan");
     const [distanceSearch, setDistanceSearch] = useState("100km");
     const navigate = useNavigate();
-    const { volcanoes } = useResults(countrySearch);
+    const { volcanoes } = useVolcanoes(countrySearch);
 
     return (
         <div className="container">

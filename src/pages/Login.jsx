@@ -1,77 +1,92 @@
-import React, { useState } from "react";
+import { useEffect, useState } from 'react';
+import ControlledForm from '../components/UserForm';
 
 const API_URL = "http://sefdb02.qut.edu.au:3001";
 
-export default function Login() {
-    const [email, setEmail] = useState([]);
-    const [password, setPassword] = useState([]);
+function parseJwt(token) {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+};
 
-    function login() {
-        const url = `${API_URL}/user/login`;
+async function getToken() {
+    const url = `${API_URL}/user/login`;
 
-        return fetch(url, {
+    try {
+        const res = await fetch(url, {
             method: "POST",
-            headers: { accept: "application/json", "Content-Type": "application/json" },
-            body: JSON.stringify({ email: email, password: password })
-        })
-            .then(res => res.json())
-            .then(res => {
-                localStorage.setItem("token", res.token);
-            });
-    }
-
-    function open() {
-        const url = `${API_URL}/volcano/1`;
-        const token = localStorage.getItem("token");
-        const headers = {
-            accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-        }
-        fetch(url, { headers })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res);
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify({
+                email: "mike@gmail.com",
+                password: "password",
             })
+        });
+
+        const json = await res.json();
+        const token = json.token;
+
+        return { error: false, token: token };
+    } catch {
+        return { error: true, message: "Failed to get token" };
+    }
+}
+
+export default function Login() {
+    const [token, setToken] = useState(null);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
+
+    const login = async () => {
+        const token = await getToken()
+        console.log(token);
+        if (token.error) {
+            console.log(token.message);
+            setError(token.message);
+            setSuccess("Incorrect: Try Again.");
+            setToken(null);
+        } else {
+            setToken(token.token);
+            localStorage.setItem('token', token.token);
+            setSuccess("Logged in succesfully!");
+            setError(null);
+        }
     }
 
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            const local_token = localStorage.getItem('token');
+            const expiry = parseJwt(local_token).exp;
+            const current_time_in_epoch = Math.round(Date.now() / 1000)
 
-
-    function ControlledForm() {
-        return (
-            <div className="UserForm">
-                <form>
-                    <label htmlFor="email">Email: </label>
-                    <input
-                        type="text"
-                        name="email"
-                        id="email"
-                        value={email}
-                        onChange={(event) => {
-                            setEmail(event.target.value);
-                        }}
-                    />
-                    <br />
-                    <label htmlFor="password">Password: </label>
-                    <input
-                        type="text"
-                        name="password"
-                        id="password"
-                        value={password}
-                        onChange={(event) => {
-                            setPassword(event.target.value);
-                        }}
-                    />
-                </form>
-            </div>
-        )
-    }
+            if (current_time_in_epoch < expiry) {
+                setToken(local_token);
+                setSuccess("Logged in succesfully!");
+                setError(null);
+            } else {
+                console.log("Token expired.");
+            }
+        }
+    }, []);
 
     return (
-        <div className="Login">
-            <h2>Login</h2>
-            <ControlledForm />
-            <button onClick={login}>Login</button>
+        <div>
+            <div className="UserForm">
+                <form>
+                    <h2>Login</h2>
+
+                    <ControlledForm />
+
+                    <button onClick={login}>Login</button>
+                    {success && <p> {success} </p>}
+                    {error && <p>{error}</p>}
+                </form>
+            </div>
         </div>
     );
 }
