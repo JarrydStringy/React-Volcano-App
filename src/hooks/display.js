@@ -14,15 +14,15 @@ const columns = [
 ]
 
 export default function Display() {
+    const navigate = useNavigate();
     const [countrySearch, setCountrySearch] = useState("Japan");
     const [distanceSearch, setDistanceSearch] = useState("100km");
-    const navigate = useNavigate();
-    const { volcanoes } = useVolcanoes(countrySearch);
+    const { volcanoes } = useVolcanoes(countrySearch, distanceSearch);
 
     return (
         <div className="container">
             <div>
-                <SearchBar onSubmit={setCountrySearch} />
+                <SearchBar onSubmit={setCountrySearch, setDistanceSearch} />
             </div>
 
             <p>
@@ -42,7 +42,7 @@ export default function Display() {
                     pagination={true}
                     paginationPageSize={12}
                     onRowClicked={(row) => navigate(
-                        `/volcano?name=${row.data.name}`
+                        `/volcano?id=${row.data.id}`
                     )}
                 />
             </div>

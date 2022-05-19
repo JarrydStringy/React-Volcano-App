@@ -22,7 +22,7 @@ export default function Register() {
     //Need to take results from controlled form and feed them into register
 
     return (
-        <div className="Login">
+        <div className="UserForm">
             <h2>Register</h2>
             <ControlledForm />
             <button onClick={register}>Register</button>
