@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export default function ControlledForm() {
+export default function UserForm() {
     const [email, setEmail] = useState([]);
     const [password, setPassword] = useState([]);
     return (
@@ -29,20 +29,3 @@ export default function ControlledForm() {
         </div>
     )
 }
-
-// function FindLogin() {
-//     useEffect(
-//         () => {
-//             ControlledForm()
-//                 .then((email) => {
-//                     setEmail(email);
-//                 })
-//                 .then((password) => {
-//                     setEmail(password);
-//                 })
-//         }, []);
-//     return {
-//         email,
-//         password
-//     };
-// }

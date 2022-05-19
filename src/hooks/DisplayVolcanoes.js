@@ -5,7 +5,7 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { Button, Badge } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "./SearchBar";
 
 const columns = [
     { headerName: "Name", field: "name", sortable: true, filter: true },

@@ -10,12 +10,13 @@ export default function SearchBar(props) {
     const [selectedDistance, setSelectedDistance] = useState("");
 
     return (
-        <div>
+        <div style={{
+            display: "inline",
+        }}>
             <ReactSelectAutocomplete
                 options={countries}
                 label="Country"
                 isSearchable={true}
-
                 aria-labelledby="search-countries"
                 name="search"
                 id="search"
@@ -27,7 +28,6 @@ export default function SearchBar(props) {
                 options={distances}
                 label="Distance Within Range"
                 aria-labelledby="search-distances"
-
                 name="search"
                 id="search"
                 type="search"
