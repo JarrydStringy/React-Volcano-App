@@ -37,7 +37,7 @@ export default function SearchBar(props) {
             <button
                 id="search-button"
                 type="button"
-                onClick={() => props.onSubmit(selectedCountry, selectedCountry)}
+                onClick={() => props.onSubmit(selectedCountry)}
             >
                 Search
             </button>

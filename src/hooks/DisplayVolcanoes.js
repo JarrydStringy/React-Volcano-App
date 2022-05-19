@@ -13,16 +13,16 @@ const columns = [
     { headerName: "Subregion", field: "subregion", sortable: true, filter: true }
 ]
 
-export default function Display() {
+export default function DisplayVolcanoes() {
     const navigate = useNavigate();
     const [countrySearch, setCountrySearch] = useState("Japan");
     const [distanceSearch, setDistanceSearch] = useState("100km");
-    const { volcanoes } = useVolcanoes(countrySearch, distanceSearch);
+    const { volcanoes } = useVolcanoes(countrySearch);
 
     return (
         <div className="container">
             <div>
-                <SearchBar onSubmit={setCountrySearch, setDistanceSearch} />
+                <SearchBar onSubmit={setCountrySearch} />
             </div>
 
             <p>
