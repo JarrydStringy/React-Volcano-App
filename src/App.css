@@ -41,12 +41,15 @@
 header {
   background: #fc5603;
   color: #fff;
-  padding: 10px 30px;
+  padding: 30px 30px;
 }
 
 footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   background: #222;
-  padding: 40px;
+  padding: 30px;
   text-align: center;
   color: #d8d8d8;
 }
@@ -58,7 +61,7 @@ nav ul li {
 
 /*Text to right*/
 nav {
-  width: 50%;
+  width: 100%;
   display: inline-block;
   text-align: right;
 }
@@ -89,4 +92,16 @@ nav ul li a:hover {
 
 .ag-theme-balham {
   text-align: center;
+}
+
+.Home {
+  background-image: url(/public/images/volcano-home.jpg);
+  height: 400px;
+}
+
+/* Login, logout, register */
+.UserForm {
+  text-align: center;
+  background-image: url(/public/images/volcano-home.jpg);
+  height: 400px;
 }

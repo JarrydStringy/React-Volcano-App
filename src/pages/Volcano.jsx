@@ -1,28 +1,30 @@
 import React from "react";
 import { Button } from "reactstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useVolcano } from "../api";
 import { MyMap } from "../hooks/map";
 
 export default function Volcano() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const name = searchParams.get("name");
-    const country = searchParams.get("country");
-    const region = searchParams.get("region");
-    const subregion = searchParams.get("subregion");
-    const last_eruption = searchParams.get("last_eruption");
-    const summit = searchParams.get("summit");
-    const elevation = searchParams.get("elevation");
+    const id = searchParams.get("id");
+    const { loading, volcano, error } = useVolcano(id);
 
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+    if (error) {
+        return <p>Something went wrong: {error.message}</p>;
+    }
     return (
         <div className="volcano">
-            <h2>{name}</h2>
-            <p>Country: {country}</p>
-            <p>Region: {region}</p>
-            <p>Subregion: {subregion}</p>
-            <p>Last Eruption: {last_eruption}</p>
-            <p>Summit: {summit}</p>
-            <p>Elevation: {elevation}</p>
+            <h2>{volcano.name} {id}</h2>
+            <p>Country: {volcano.country}</p>
+            <p>Region: {volcano.region}</p>
+            <p>Subregion: {volcano.subregion}</p>
+            <p>Last Eruption: {volcano.last_eruption}</p>
+            <p>Summit: {volcano.summit}</p>
+            <p>Elevation: {volcano.elevation}</p>
 
             <MyMap />
 
