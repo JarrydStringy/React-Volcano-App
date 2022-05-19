@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 
-export function useVolcanoes(countryQuery, distanceQuery) {
+export function useVolcanoes() {
     const [loading, setLoading] = useState(true);
     const [volcanoes, setVolcanoes] = useState([]);
     const [error, setError] = useState(null);
 
-    // const COUNTRY_QUERY = "Japan";
-    // const DISTANCE_QUERY = 100;
+    const COUNTRY_QUERY = "Japan";
+    const DISTANCE_QUERY = 100;
 
     useEffect(
         () => {
-            getVolcanoes(countryQuery, distanceQuery)
+            getVolcanoes(COUNTRY_QUERY, DISTANCE_QUERY)
                 .then((volcanoes) => {
                     setVolcanoes(volcanoes);
                 })
@@ -20,7 +20,7 @@ export function useVolcanoes(countryQuery, distanceQuery) {
                 .finally(() => {
                     setLoading(false);
                 });
-        }, [countryQuery, distanceQuery]);
+        }, []);
     return {
         loading,
         volcanoes,
@@ -44,16 +44,16 @@ function getVolcanoes(cq, dq) {
         );
 }
 
-export function useVolcano(idQuery) {
+export function useVolcano() {
     const [loading, setLoading] = useState(true);
     const [volcano, setVolcano] = useState([]);
     const [error, setError] = useState(null);
 
-    const ID_QUERY = "1";
+    const ID_QUERY = 1;
 
     useEffect(
         () => {
-            getVolcano(idQuery)
+            getVolcano(ID_QUERY)
                 .then((volcano) => {
                     setVolcano(volcano);
                 })
@@ -75,24 +75,7 @@ function getVolcano(iq) {
     const url = `http://sefdb02.qut.edu.au:3001/volcano/${iq}`;
 
     return fetch(url)
-        .then((res) => res.json())
-        .then((volcanoes) =>
-            volcanoes.map((volcano) => ({
-                name: volcano.name,
-                country: volcano.country,
-                region: volcano.region,
-                subregion: volcano.subregion,
-                last_eruption: volcano.last_eruption,
-                summit: volcano.summit,
-                elevation: volcano.elevation,
-                latitude: volcano.latitude,
-                longitude: volcano.longitude,
-                population_5km: volcano.population_5km,
-                population_10km: volcano.lopopulation_10kmngitude,
-                population_30km: volcano.population_30km,
-                population_100km: volcano.population_100km
-            }))
-        );
+        .then((res) => res.json());
 }
 
 export function useCountries() {

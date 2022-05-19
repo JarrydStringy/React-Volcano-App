@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "reactstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useVolcano } from "../api";
-import { MyMap } from "../hooks/map";
+import { MyMap } from "../hooks/Map";
 
 export default function Volcano() {
     const navigate = useNavigate();

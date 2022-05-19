@@ -1,6 +1,6 @@
 import React from "react";
 import { useVolcanoes } from "../api";
-import Display from "../hooks/display";
+import DisplayVolcanoes from "../hooks/DisplayVolcanoes";
 
 export default function VolcanoList() {
     const { loading, error } = useVolcanoes();
@@ -14,7 +14,7 @@ export default function VolcanoList() {
     return (
         <div className="VolcanoList">
             <h2>Volcanoes</h2>
-            <Display />
+            <DisplayVolcanoes />
         </div>
     );
 }
