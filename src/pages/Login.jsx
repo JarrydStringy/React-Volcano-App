@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import ControlledForm from '../components/UserForm';
+import UserForm from '../hooks/UserForm';
 
 const API_URL = "http://sefdb02.qut.edu.au:3001";
 
@@ -80,7 +80,7 @@ export default function Login() {
                 <form>
                     <h2>Login</h2>
 
-                    <ControlledForm />
+                    <UserForm />
 
                     <button onClick={login}>Login</button>
                     {success && <p> {success} </p>}

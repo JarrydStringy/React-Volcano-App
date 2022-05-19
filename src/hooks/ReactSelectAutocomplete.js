@@ -15,10 +15,13 @@ export default function ReactSelectAutocomplete({ options, label, onChange }) {
 
     return (
         <Select
+            value={selected}
             defaultValue={selected}
             onChange={handleSelection}
             options={formattedOptions}
-            placeholder={label}
+            placeholder={"Type or Select a Country"}
+            autosize={true}
         />
+
     );
 }

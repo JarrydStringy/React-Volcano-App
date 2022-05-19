@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ControlledForm from "../components/UserForm";
+import UserForm from '../hooks/UserForm';
 
 const API_URL = "http://sefdb02.qut.edu.au:3001";
 
@@ -24,7 +24,7 @@ export default function Register() {
     return (
         <div className="UserForm">
             <h2>Register</h2>
-            <ControlledForm />
+            <UserForm />
             <button onClick={register}>Register</button>
         </div>
     );
