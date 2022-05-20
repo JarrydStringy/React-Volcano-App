@@ -1,23 +1,17 @@
 import React, { useState } from 'react'
 import { Map, Marker, ZoomControl } from "pigeon-maps"
-import { stamenTerrain } from 'pigeon-maps/providers'
 import { useVolcano } from '../api'
-
-const MAPTILER_ACCESS_TOKEN = 'QqxLQvI2hmWaPXWzSLxM'
-const MAP_ID = 'Topo'
-
-function mapTiler(x, y, z, dpr) {
-    return `https://api.maptiler.com/maps/${MAP_ID}/256/${z}/${x}/${y}${dpr >= 2 ? '@2x' : ''}.png?key=${MAPTILER_ACCESS_TOKEN}`
-}
 
 export function MyMap(id) {
     const { volcano } = useVolcano(id);
-    const [center, setCenter] = useState([volcano.latitude, volcano.longitude])
+    const latitude = parseFloat(volcano.latitude)
+    const longitude = parseFloat(volcano.longitude)
+    const [center, setCenter] = useState([latitude, longitude])
     const [zoom, setZoom] = useState(11)
+
     return (
         <div>
             <Map
-                provider={stamenTerrain}
                 dprs={[1, 2]} // add this to support hidpi/retina (2x) maps if your provider supports them
                 height={400}
                 width={600}
@@ -30,7 +24,7 @@ export function MyMap(id) {
             >
                 <Marker
                     width={50}
-                    anchor={[volcano.latitude, volcano.longitude]}
+                    anchor={[latitude, longitude]}
                 />
                 <ZoomControl />
             </Map >
