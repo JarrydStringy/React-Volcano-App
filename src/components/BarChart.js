@@ -1,5 +1,4 @@
 import { useVolcano } from '../api'
-
 import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -35,12 +34,13 @@ export function BarChart(id) {
             label: 'My First dataset',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
+            //  data: [12, 19, 3, 5, 2, 3]
             data: [
                 volcano.population_5km,
                 volcano.population_10km,
                 volcano.population_30km,
                 volcano.population_100km
-            ],
+            ]
         }]
     };
 

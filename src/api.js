@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+const API_URL = "http://sefdb02.qut.edu.au:3001";
+
 export function useVolcanoes() {
     const [loading, setLoading] = useState(true);
     const [volcanoes, setVolcanoes] = useState([]);
@@ -29,7 +31,7 @@ export function useVolcanoes() {
 }
 
 function getVolcanoes(cq, dq) {
-    const url = `http://sefdb02.qut.edu.au:3001/volcanoes?country=${cq}&populatedWithin=${dq}km`;
+    const url = API_URL + `/volcanoes?country=${cq}&populatedWithin=${dq}km`;
 
     return fetch(url)
         .then((res) => res.json())
@@ -72,7 +74,7 @@ export function useVolcano() {
 }
 
 function getVolcano(iq) {
-    const url = `http://sefdb02.qut.edu.au:3001/volcano/${iq}`;
+    const url = API_URL + `/volcano/${iq}`;
 
     return fetch(url)
         .then((res) => res.json());
@@ -104,8 +106,69 @@ export function useCountries() {
 }
 
 function getCountries() {
-    const url = `http://sefdb02.qut.edu.au:3001/countries`;
+    const url = API_URL + `/countries`;
 
     return fetch(url)
         .then((res) => res.json());
+}
+
+export function useUser() {
+    const [token, setToken] = useState(null);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
+
+    function parseJwt(token) {
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    };
+
+    useEffect(() => {
+        if (getToken()) {
+            const local_token = localStorage.getItem('token');
+            const expiry = parseJwt(local_token).exp;
+            const current_time_in_epoch = Math.round(Date.now() / 1000)
+
+            if (current_time_in_epoch < expiry) {
+                setToken(local_token);
+                setSuccess("Logged in succesfully!");
+                setError(null);
+            } else {
+                console.log("Token expired.");
+            }
+        }
+    }, []);
+    return {
+        token, setToken,
+        error, setError,
+        success, setSuccess
+    };
+}
+
+function getToken() {
+    const url = API_URL + "/user/login";
+
+    try {
+        const res = fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify({
+                email: "mike@gmail.com",
+                password: "password",
+            })
+        });
+
+        const json = res.json();
+        const token = json.token;
+
+        return { error: false, token: token };
+    } catch {
+        return { error: true, message: "Failed to get token" };
+    }
 }

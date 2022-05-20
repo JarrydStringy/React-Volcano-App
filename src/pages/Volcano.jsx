@@ -1,15 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "reactstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useVolcano } from "../api";
-import { MyMap } from "../hooks/Map";
 import { BarChart } from "../components/BarChart";
+import { Map, Marker, ZoomControl } from "pigeon-maps"
 
 export default function Volcano() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
     const { loading, volcano, error } = useVolcano(id);
+    const latitude = parseFloat(volcano.latitude)
+    const longitude = parseFloat(volcano.longitude)
+
+    function MyMap() {
+        const [center, setCenter] = useState([latitude, longitude])
+        const [zoom, setZoom] = useState(11)
+        return (
+            <div>
+                <Map
+                    dprs={[1, 2]} // add this to support hidpi/retina (2x) maps if your provider supports them
+                    height={400}
+                    width={600}
+                    center={center}
+                    zoom={zoom}
+                    onBoundsChanged={({ center, zoom }) => {
+                        setCenter(center)
+                        setZoom(zoom)
+                    }}
+                >
+                    <Marker
+                        width={50}
+                        anchor={[latitude, longitude]}
+                    />
+                    <ZoomControl />
+                </Map >
+            </div>
+        )
+    }
 
     if (loading) {
         return <p>Loading...</p>;
@@ -19,23 +47,21 @@ export default function Volcano() {
     }
     return (
         <div className="volcano">
-            <h2>{volcano.name} {id}</h2>
+            <h2>{volcano.name}</h2>
             <p>Country: {volcano.country}</p>
             <p>Region: {volcano.region}</p>
             <p>Subregion: {volcano.subregion}</p>
             <p>Last Eruption: {volcano.last_eruption}</p>
             <p>Summit: {volcano.summit}</p>
             <p>Elevation: {volcano.elevation}</p>
-            <p>Latitude: {volcano.latitude}</p>
-            <p>Longitude: {volcano.longitude}</p>
             <p>population_5km: {volcano.population_5km}</p>
             <p>population_10km: {volcano.population_10km}</p>
             <p>population_30km: {volcano.population_30km}</p>
             <p>population_100km: {volcano.population_100km}</p>
 
-            <MyMap id />
+            <MyMap />
 
-            <BarChart id />
+            {/* <BarChart id /> */}
 
             <Button
                 color="info"

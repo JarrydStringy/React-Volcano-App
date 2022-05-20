@@ -102,6 +102,6 @@ nav ul li a:hover {
 /* Login, logout, register */
 .UserForm {
   text-align: center;
-  background-image: url(/public/images/volcano-home.jpg);
   height: 400px;
+  display: inline-block;
 }
