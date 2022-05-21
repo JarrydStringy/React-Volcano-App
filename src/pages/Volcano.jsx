@@ -54,14 +54,10 @@ export default function Volcano() {
             <p>Last Eruption: {volcano.last_eruption}</p>
             <p>Summit: {volcano.summit}</p>
             <p>Elevation: {volcano.elevation}</p>
-            <p>population_5km: {volcano.population_5km}</p>
-            <p>population_10km: {volcano.population_10km}</p>
-            <p>population_30km: {volcano.population_30km}</p>
-            <p>population_100km: {volcano.population_100km}</p>
 
             <MyMap />
 
-            {/* <BarChart id /> */}
+            <BarChart id />
 
             <Button
                 color="info"

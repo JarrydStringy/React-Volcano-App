@@ -46,16 +46,14 @@ function getVolcanoes(cq, dq) {
         );
 }
 
-export function useVolcano() {
+export function useVolcano(id) {
     const [loading, setLoading] = useState(true);
     const [volcano, setVolcano] = useState([]);
     const [error, setError] = useState(null);
 
-    const ID_QUERY = 1;
-
     useEffect(
         () => {
-            getVolcano(ID_QUERY)
+            getVolcano(id)
                 .then((volcano) => {
                     setVolcano(volcano);
                 })

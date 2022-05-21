@@ -1,5 +1,5 @@
-import { useVolcano } from '../api'
-import { Bar } from 'react-chartjs-2';
+import React from 'react';
+import { useVolcano } from '../api';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -9,41 +9,18 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
 export function BarChart(id) {
-    ChartJS.register(
-        CategoryScale,
-        LinearScale,
-        BarElement,
-        Title,
-        Tooltip,
-        Legend
-    );
-
-    const { volcano } = useVolcano(id);
-    const labels = [
-        '5km',
-        '10km',
-        '30km',
-        '100km'
-    ];
-
-    const data = {
-        labels: labels,
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            //  data: [12, 19, 3, 5, 2, 3]
-            data: [
-                volcano.population_5km,
-                volcano.population_10km,
-                volcano.population_30km,
-                volcano.population_100km
-            ]
-        }]
-    };
-
     const options = {
         responsive: true,
         plugins: {
@@ -57,11 +34,32 @@ export function BarChart(id) {
         },
     };
 
+    const labels = [
+        '5km',
+        '10km',
+        '30km',
+        '100km'
+    ];
+
+    const { volcano } = useVolcano(id);
+
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'Population Within Distance',
+                data: [
+                    volcano.population_5km,
+                    volcano.population_10km,
+                    volcano.population_30km,
+                    volcano.population_100km
+                ],
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            }
+        ],
+    };
+
     return (
-        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
-            <canvas id="populationChart">
-                <Bar options={options} data={data} />;
-            </canvas>
-        </div>
-    )
+        <Bar options={options} data={data} />
+    );
 }

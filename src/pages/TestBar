@@ -1,0 +1,67 @@
+import { useVolcano } from '../api'
+import { BarChart } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+
+export function BarChart(id) {
+    ChartJS.register(
+        CategoryScale,
+        LinearScale,
+        BarElement,
+        Title,
+        Tooltip,
+        Legend
+    );
+
+    const { volcano } = useVolcano(id);
+    const labels = [
+        '5km',
+        '10km',
+        '30km',
+        '100km'
+    ];
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            //  data: [12, 19, 3, 5, 2, 3]
+            data: [
+                volcano.population_5km,
+                volcano.population_10km,
+                volcano.population_30km,
+                volcano.population_100km
+            ]
+        }]
+    };
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Chart.js Bar Chart',
+            },
+        },
+    };
+
+    return (
+        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+            <canvas id="populationChart">
+                <BarChart options={options} data={data} />;
+            </canvas>
+        </div>
+    )
+}
