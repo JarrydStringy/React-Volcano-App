@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const [emailValue, setEmailValue] = useState("")
-    const [passwordValue, setPasswordValue] = useState("")
+    const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function Login() {
             },
             body: JSON.stringify({
                 email: emailValue,
-                password: passwordValue,
+                password: password,
             }),
         })
             .then((res) => res.json())
@@ -72,9 +72,9 @@ export default function Login() {
                 name="password"
                 id="password"
                 type="password"
-                value={passwordValue}
+                value={password}
                 onChange={(e) => {
-                    setPasswordValue(e.target.value)
+                    setPassword(e.target.value)
                 }}
             ></Input>
 

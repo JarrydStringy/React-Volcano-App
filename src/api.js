@@ -73,8 +73,14 @@ export function useVolcano(id) {
 
 function getVolcano(iq) {
     const url = API_URL + `/volcano/${iq}`;
+    const token = localStorage.getItem("token")
+    const headers = {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+    }
 
-    return fetch(url)
+    return fetch(url, { headers })
         .then((res) => res.json());
 }
 

@@ -32,8 +32,7 @@ export default function Nav() {
                 </ul>
             </nav >
         );
-    }
-    else {
+    } else {
         return (
             <nav>
                 <ul>

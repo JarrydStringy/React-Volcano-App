@@ -33,7 +33,9 @@ export default function DisplayVolcanoes() {
             <div
                 className="ag-theme-balham"
                 style={{
-                    height: "400px"
+                    height: "400px",
+                    width: "650px",
+                    alignContent: "center"
                 }}
             >
                 <AgGridReact
@@ -46,7 +48,7 @@ export default function DisplayVolcanoes() {
                     )}
                 />
             </div>
-
+            <br></br>
             <Button color="info"
                 size="sm"
                 className="mt-3"
