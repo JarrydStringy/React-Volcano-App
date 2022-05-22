@@ -36,8 +36,9 @@ export default function Login() {
 
                 if (res.token !== undefined) {
                     localStorage.setItem("token", res.token)
+                    navigate(`/`);
+                    window.location.reload(false)
                 }
-                navigate(`/`);
             })
     }
 
