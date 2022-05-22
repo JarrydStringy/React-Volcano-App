@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { Map, Marker, ZoomControl } from "pigeon-maps"
-import { useVolcano } from '../api'
+import React, { useState } from 'react';
+import { Map, Marker, ZoomControl } from "pigeon-maps";
+import { useVolcano } from "../api";
 
 export function MyMap(id) {
     const { volcano } = useVolcano(id);
-    const latitude = parseFloat(volcano.latitude)
-    const longitude = parseFloat(volcano.longitude)
-    const [center, setCenter] = useState([latitude, longitude])
-    const [zoom, setZoom] = useState(11)
+    const latitude = parseFloat(volcano.latitude);
+    const longitude = parseFloat(volcano.longitude);
+    const [center, setCenter] = useState([latitude, longitude]);
+    const [zoom, setZoom] = useState(11);
 
     return (
         <div>

@@ -1,5 +1,5 @@
 import React from "react";
-import Nav from "./Nav";
+import Navigation from "./Nav";
 
 // the header
 export default function Header() {
@@ -8,7 +8,7 @@ export default function Header() {
             <div id="icon">
 
             </div>
-            <Nav />
+            <Navigation />
         </header>
     );
 }

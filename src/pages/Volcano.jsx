@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { Button } from "reactstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useVolcano } from "../api";
 import { BarChart } from "../components/BarChart";
-import { Map, Marker, ZoomControl } from "pigeon-maps"
+import { Map, Marker, ZoomControl } from "pigeon-maps";
+// import { MyMap } from "../hooks/DisplayMap";
 
 export default function Volcano() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
     const { loading, volcano, error } = useVolcano(id);
-    const latitude = parseFloat(volcano.latitude)
-    const longitude = parseFloat(volcano.longitude)
 
     function MyMap() {
+        const latitude = parseFloat(volcano.latitude);
+        const longitude = parseFloat(volcano.longitude);
         const [center, setCenter] = useState([latitude, longitude])
         const [zoom, setZoom] = useState(11)
         return (

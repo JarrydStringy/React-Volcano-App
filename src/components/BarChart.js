@@ -60,6 +60,8 @@ export function BarChart(id) {
     };
 
     return (
-        <Bar options={options} data={data} />
+        <div style={{ width: "600px", margin: "auto auto" }}>
+            <Bar options={options} data={data} />
+        </div>
     );
 }

@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 
 // navigation links
 export default function Nav() {
-    const token = localStorage.getItem("token");
+    const [loggedIn, setLoggedIn] = useState(false)
 
-    if (!token) {
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            setLoggedIn(true)
+        } else {
+            setLoggedIn(false)
+        }
+    }, [])
+
+    if (!loggedIn) {
         return (
             <nav>
                 <ul>
@@ -42,5 +50,4 @@ export default function Nav() {
             </nav >
         );
     }
-
 }
