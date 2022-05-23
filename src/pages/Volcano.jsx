@@ -45,7 +45,7 @@ export default function Volcano() {
         const [center, setCenter] = useState([latitude, longitude])
         const [zoom, setZoom] = useState(11)
         return (
-            <div>
+            <div className='data'>
                 <Map
                     dprs={[1, 2]} // add this to support hidpi/retina (2x) maps if your provider supports them
                     height={400}
@@ -105,7 +105,10 @@ export default function Volcano() {
         };
 
         return (
-            <div style={{ width: "600px", margin: "auto auto" }}>
+            <div
+                className='data'
+                style={{ width: "600px", margin: "auto auto" }}
+            >
                 <Bar options={options} data={data} />
             </div>
         );
@@ -128,8 +131,10 @@ export default function Volcano() {
                 <p>Summit: {volcano.summit}</p>
                 <p>Elevation: {volcano.elevation}</p>
 
-                <MyMap />
-                <BarChart id />
+                <div className='data'>
+                    <MyMap />
+                    <BarChart id />
+                </div>
 
                 <Button
                     color="info"

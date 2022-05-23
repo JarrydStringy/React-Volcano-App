@@ -9,6 +9,7 @@ export default function SearchBar(props) {
     const [selectedCountry, setSelectedCountry] = useState("");
     const [selectedDistance, setSelectedDistance] = useState("");
 
+    console.log("here" + selectedCountry)
     return (
         <div style={{
             display: "inline",
@@ -18,8 +19,8 @@ export default function SearchBar(props) {
                 label="Country"
                 isSearchable={true}
                 aria-labelledby="search-countries"
-                name="search"
-                id="search"
+                name="countrySearch"
+                id="countrySearch"
                 type="search"
                 value={selectedCountry}
                 onChange={(e) => setSelectedCountry(e.target.value)}

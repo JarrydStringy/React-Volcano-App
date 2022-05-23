@@ -106,3 +106,7 @@ nav ul li a:hover {
   height: 400px;
   display: inline-block;
 }
+
+.data {
+  display: inline-block;
+}

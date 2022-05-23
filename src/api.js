@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 
 const API_URL = "http://sefdb02.qut.edu.au:3001";
 
-export function useVolcanoes() {
+export function useVolcanoes(countrySearch, distanceSearch) {
     const [loading, setLoading] = useState(true);
     const [volcanoes, setVolcanoes] = useState([]);
     const [error, setError] = useState(null);
 
-    const COUNTRY_QUERY = "Japan";
+    // const COUNTRY_QUERY = "Japan";
     const DISTANCE_QUERY = 100;
 
     useEffect(
         () => {
-            getVolcanoes(COUNTRY_QUERY, DISTANCE_QUERY)
+            getVolcanoes(countrySearch, DISTANCE_QUERY)
                 .then((volcanoes) => {
                     setVolcanoes(volcanoes);
                 })

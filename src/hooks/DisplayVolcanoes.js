@@ -17,12 +17,25 @@ export default function DisplayVolcanoes() {
     const navigate = useNavigate();
     const [countrySearch, setCountrySearch] = useState("Japan");
     const [distanceSearch, setDistanceSearch] = useState("100km");
-    const { volcanoes } = useVolcanoes(countrySearch);
+    const { volcanoes } = useVolcanoes(countrySearch, distanceSearch);
+
+    function handleSubmit() {
+        setCountrySearch(countrySearch)
+        setDistanceSearch(distanceSearch)
+    }
 
     return (
-        <div className="container">
+        <div className="container"
+            onSubmit={(e) => {
+                e.preventDefault()
+                handleSubmit()
+            }}
+        >
             <div>
-                <SearchBar onSubmit={setCountrySearch} />
+                <SearchBar
+                    countrySearch={countrySearch}
+                    distanceSearch={distanceSearch}
+                />
             </div>
 
             <p>
